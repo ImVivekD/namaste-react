@@ -5,6 +5,7 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory, {NestedRestaurantCategory} from "./RestaurantCategory";
 import { NONVEG_ICON, VEG_ICON, STAR_GREEN_ICON, STAR_ICON, CDN_URL } from "../utils/constants";
 //import { NestedRestaurantCategory } from "./RestaurantCategory";
+import UserContext from "../utils/userContext";
 
 const Menu = () => {
     const {resId} = useParams();
@@ -21,6 +22,7 @@ const Menu = () => {
     const {cards} = menuItems?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR;
     const categories = cards.filter((c) => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
     return(
+        <UserContext.Provider value={{loggedInUser:"Vivekananda Royal"}}>
         <div className="px-4 w-[1000px] m-auto">
             <h1 className="font-bold text-xl">{name}</h1>
             <div className="menu-info-wrapper">
@@ -41,6 +43,7 @@ const Menu = () => {
             </div>
 
         </div>
+        </UserContext.Provider>
     )
 }
 

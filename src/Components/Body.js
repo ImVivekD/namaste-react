@@ -1,14 +1,17 @@
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 
 const Body = () => {
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([]);
     const [searchTxt, setSearchTxt] = useState("");
     const onlineStatus = useOnlineStatus();
+    const {loggedInUser, setUserName} = useContext(UserContext);
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -40,13 +43,15 @@ const Body = () => {
                 Filter Restaurants
             </button>
         </div>
+        <div className="flex mx-2 justify-start py-4">
+            <input type="text" value={loggedInUser} onChange={(e) => setUserName(e.target.value)}/>
+        </div>
         <div className="flex flex-wrap">
         {
             filteredListOfRestaurants.map(restaurant => <Link to={"/restaurants/"+restaurant.info.id} key={restaurant.info.id}><RestaurantCard resData={restaurant}/></Link>)
         }
     </div>
     </div>
-        
     )
 }
 

@@ -1,7 +1,19 @@
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
 import { NONVEG_ICON, VEG_ICON, STAR_GREEN_ICON, STAR_ICON } from "../utils/constants";
+import UserContext from "../utils/userContext";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
-const ItemList = ({items}) => {
+const ItemList = ({items, isCart}) => {
+    const {loggedInUser} = useContext(UserContext);
+    //console.log(loggedInUser);
+
+    const dispatch = useDispatch()
+    const handleAddItem = (item) => {
+        console.log("Handle Add");
+        dispatch(addItem(item));
+    }
     return(
         <div>
             {items.map((item) => (
@@ -22,7 +34,7 @@ const ItemList = ({items}) => {
                     
                     <div className="p-2 relative">
                         <img className=" w-[300px] h-auto rounded-lg" src={CDN_URL+item.card.info.imageId} />
-                        <button className="px-8 py-2 bg-white text-green-300 font-bold absolute rounded-lg bottom-3 left-14">Add</button>
+                        {!isCart && <button className="px-8 py-2 bg-white text-green-300 font-bold absolute rounded-lg bottom-3 left-14" onClick={() => handleAddItem(item)}>Add</button>}
                     </div>
                 </div>
             ))}

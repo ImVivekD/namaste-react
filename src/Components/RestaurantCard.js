@@ -1,9 +1,13 @@
 
+import { useContext } from "react";
 import { NONVEG_ICON, VEG_ICON, CDN_URL, STAR_GREEN_ICON, STAR_ICON, CDN_URL } from "../utils/constants";
+import UserContext from "../utils/userContext";
 
 const RestaurantCard = (props) => {
     const {resData} = props;
 
+    const userName = useContext(UserContext);
+    //console.log(userName);
     const {name, cuisines, cloudinaryImageId, sla, avgRating, locality} = resData?.info;
     return (
         <div className=" w-[275px] m-2 rounded-lg h-[350px] hover:scale-95">

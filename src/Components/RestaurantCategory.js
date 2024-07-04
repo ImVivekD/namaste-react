@@ -1,12 +1,9 @@
-import { useState } from "react";
 import ItemList from "./ItemList";
 
 const RestaurantCategory = (props) => {
     const {itemCards, title} = props?.data;
     const {showAccordian} = props;
     const {setShowIndex} = props;
-    const [accordionOpened, setAccordionOpened] = useState(false);
-    console.log(showAccordian);
 
     handleClick = () => {
         setShowIndex();
